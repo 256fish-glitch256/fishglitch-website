@@ -74,12 +74,12 @@ pagination.pagerSize = 5
 [languages]
   [languages.en]
     languageName = "English"
-    title = "Terminal"
+    title = "🐟🥩 fish.steak"
 
     [languages.en.params]
-      subtitle = "A simple, retro theme for Hugo"
-      owner = ""
-      keywords = ""
+      subtitle = "A personal page"
+      owner = "fish.steak"
+      keywords = "art, personal website"
       copyright = ""
       menuMore = "Show more"
       readMore = "Read more"
@@ -92,7 +92,7 @@ pagination.pagerSize = 5
       words = "words"
 
       [languages.en.params.logo]
-        logoText = "Terminal"
+        logoText = "fish.steak"
         logoHomeLink = "/"
 
       [languages.en.menu]
@@ -101,9 +101,13 @@ pagination.pagerSize = 5
           name = "About"
           url = "/about"
         [[languages.en.menu.main]]
-          identifier = "showcase"
-          name = "Showcase"
-          url = "/showcase"
+          identifier = "art"
+          name = "Art"
+          url = "/art"
+        [[languages.en.menu.main]]
+          identifier = "blog"
+          name = "Blog"
+          url = "/blog"
 
 [module]
   # In case you would like to make changes to the theme and keep it locally in you repository,
