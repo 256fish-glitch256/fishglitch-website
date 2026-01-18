@@ -96,15 +96,15 @@ pagination.pagerSize = 5
         logoHomeLink = "/"
 
       [languages.en.menu]
-        [[languages.en.menu.about]]
+        [[languages.en.menu.main]]
           identifier = "about"
           name = "About"
           url = "/about"
-        [[languages.en.menu.art]]
+        [[languages.en.menu.main]]
           identifier = "art"
           name = "Art"
           url = "/content/art"
-        [[languages.en.menu.blog]]
+        [[languages.en.menu.main]]
           identifier = "blog"
           name = "Blog"
           url = "/content/blog"
