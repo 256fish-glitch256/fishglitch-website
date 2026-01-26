@@ -79,7 +79,7 @@ pagination.pagerSize = 5
     [languages.en.params]
       subtitle = "A personal page"
       owner = "fish.steak"
-      keywords = "art, personal website"
+      keywords = "art, music, personal website"
       copyright = ""
       menuMore = "Show more"
       readMore = "Read more"
