@@ -4,8 +4,17 @@ draft: false
 ---
 
 # Fun
+## Games
+## Miscellaneous
 
-# Tools
+# Indie Web
+## Smol web
+https://tildeverse.org/
 
-# Games
+# Online Tools
+https://noclip.website/
 
+
+# Apps
+
+# Social
