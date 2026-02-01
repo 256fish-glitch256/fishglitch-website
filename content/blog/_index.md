@@ -5,4 +5,4 @@ draft: false
 ---
 # Blog
 
-Placeholder blog page
+My thoughts about various things.
