@@ -1,9 +1,61 @@
 <style>
     .image-gallery {overflow: auto; margin-left: -1%!important;}
     .image-gallery li {float: left; display: block; margin: 0 0 1% 1%; width: 19%;}
-    .image-gallery li a {text-align: center; text-decoration: none!important; color: #777;}
+    .image-gallery li a {text-align: center; text-decoration: none!important; color: #777; cursor: pointer;}
     .image-gallery li a span {display: block; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; padding: 3px 0;}
     .image-gallery li a img {width: 100%; display: block;}
+
+    /* Modal styles */
+    .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .image-modal.active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .image-modal-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .image-modal-image {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
+    }
+
+    .image-modal-title {
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        font-size: 1.2em;
+    }
+
+    .image-modal-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        color: white;
+        font-size: 2em;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .image-modal-close:hover {
+        color: #ccc;
+    }
 </style>
 
 {{ $images := .Page.Resources }}
@@ -11,14 +63,20 @@
 {{ if $images }}
 <ul class="image-gallery">
 {{ range $images }}
-  {{- $image := resources.Get (printf "%s/%s" .Name) -}}
-  {{- $imageurl := printf "%s/%s" .Name -}}
-  {{- $imagetitle := index (split .Name ".") 0 -}}
+  {{- $basename := .Name | path.Base -}}
+  {{- $imagetitle := index (split $basename ".") 0 -}}
     <li>
-      <a href="{{ ($image.Fit "1600x1600 q50").Permalink }}" title="{{ $imagetitle }}" class="lightbox-image">
-        <img src="{{ ($image.Fill "300x300 q50").Permalink }}" alt="{{ $imagetitle }}" title="{{ $imagetitle }}">
+      <a onclick="openImageModal(this, '{{ $imagetitle }}')" title="{{ $imagetitle }}" class="gallery-image">
+        <img src="{{ (.Fill "300x300 q50").Permalink }}" alt="{{ $imagetitle }}" title="{{ $imagetitle }}">
         <span>{{ $imagetitle }}</span>
       </a>
+      <div class="image-modal" id="modal-{{ $imagetitle }}">
+        <div class="image-modal-content">
+          <span class="image-modal-close" onclick="closeImageModal('{{ $imagetitle }}')">&times;</span>
+          <img class="image-modal-image" src="{{ (.Fit "1600x1600 q50").Permalink }}" alt="{{ $imagetitle }}">
+          <div class="image-modal-title">{{ $imagetitle }}</div>
+        </div>
+      </div>
     </li>
   
 {{ end }}
@@ -26,3 +84,35 @@
 {{ else }}
 	<p>No images found</p>
 {{ end }}
+
+<script>
+function openImageModal(element, title) {
+    const modal = document.getElementById('modal-' + title);
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+function closeImageModal(title) {
+    const modal = document.getElementById('modal-' + title);
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+// Close modal when clicking outside the image
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('image-modal')) {
+        event.target.classList.remove('active');
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('.image-modal.active').forEach(modal => {
+            modal.classList.remove('active');
+        });
+    }
+});
+</script>
