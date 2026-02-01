@@ -5,7 +5,11 @@ resources:
   - src: ["./images/**/*.{jpg,png}"]
 ---
 
-This will be my art gallery, but need to figure out how hugo works.
+# My art
+Art I make
 
+---
+
+## 2025
 {{< image-gallery >}}
 
