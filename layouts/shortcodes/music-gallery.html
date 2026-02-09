@@ -26,8 +26,12 @@
         margin-top: 10px;
     }
     
-    /* Custom audio player styling */
+    /* Custom audio player styling - cross-browser support */
     audio::-webkit-media-controls-panel {
+        background-color: #222;
+    }
+    
+    audio::-moz-media-controls-panel {
         background-color: #222;
     }
 </style>
@@ -38,9 +42,9 @@
 <ul class="music-gallery">
 {{ range $audioFiles }}
   {{- $basename := .Name | path.Base -}}
-  {{- $songTitle := index (split $basename ".") 0 -}}
-  {{- $songTitle := replace $songTitle "-" " " -}}
-  {{- $songTitle := replace $songTitle "_" " " -}}
+  {{- $nameWithoutExt := index (split $basename ".") 0 -}}
+  {{- $songTitle := replace $nameWithoutExt "-" " " -}}
+  {{- $songTitle = replace $songTitle "_" " " -}}
     <li class="music-item">
       <div class="music-item-title">🎵 {{ $songTitle }}</div>
       <audio controls preload="metadata">
