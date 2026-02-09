@@ -115,6 +115,10 @@ pagination.pagerSize = 5
 	   identifier= "links"
 	   name = "Links"
 	   url = "/links/"
+	[[languages.en.menu.main]]
+	   identifier = "music"
+	   name = "Music"
+	   url = "/music/"
 
 [module]
   # In case you would like to make changes to the theme and keep it locally in you repository,

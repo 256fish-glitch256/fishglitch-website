@@ -1,0 +1,56 @@
+<style>
+    .music-gallery {
+        overflow: auto;
+        margin-left: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    .music-gallery li {
+        display: block;
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.02);
+    }
+    
+    .music-item-title {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+    
+    .music-item audio {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    /* Custom audio player styling */
+    audio::-webkit-media-controls-panel {
+        background-color: #222;
+    }
+</style>
+
+{{ $audioFiles := .Page.Resources.Match "songs/**" }}
+
+{{ if $audioFiles }}
+<ul class="music-gallery">
+{{ range $audioFiles }}
+  {{- $basename := .Name | path.Base -}}
+  {{- $songTitle := index (split $basename ".") 0 -}}
+  {{- $songTitle := replace $songTitle "-" " " -}}
+  {{- $songTitle := replace $songTitle "_" " " -}}
+    <li class="music-item">
+      <div class="music-item-title">🎵 {{ $songTitle }}</div>
+      <audio controls preload="metadata">
+        <source src="{{ .Permalink }}" type="{{ .MediaType }}">
+        Your browser does not support the audio element.
+      </audio>
+    </li>
+{{ end }}
+</ul>
+{{ else }}
+<p>No music files found. Please add music files to the <code>content/music/songs/</code> directory.</p>
+<p>Supported formats: MP3, WAV, OGG</p>
+{{ end }}
