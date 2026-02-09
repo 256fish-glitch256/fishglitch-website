@@ -45,10 +45,14 @@
   {{- $nameWithoutExt := index (split $basename ".") 0 -}}
   {{- $songTitle := replace $nameWithoutExt "-" " " -}}
   {{- $songTitle = replace $songTitle "_" " " -}}
+  {{- $mimeType := .MediaType -}}
+  {{- if or (strings.HasSuffix $basename ".wav") (strings.HasSuffix $basename ".WAV") -}}
+    {{- $mimeType = "audio/wav" -}}
+  {{- end -}}
     <li class="music-item">
       <div class="music-item-title">🎵 {{ $songTitle }}</div>
       <audio controls preload="metadata">
-        <source src="{{ .Permalink }}" type="{{ .MediaType }}">
+        <source src="{{ .Permalink }}" type="{{ $mimeType }}">
         Your browser does not support the audio element.
       </audio>
     </li>
